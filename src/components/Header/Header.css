@@ -1,0 +1,9 @@
+header.AppHeader {
+  background-color: #09f ;
+  color: #fff;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+
+}
