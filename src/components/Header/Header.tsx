@@ -1,8 +1,14 @@
 import React from 'react'
+
 import './Header.css'
-const Header = () => {
+
+declare interface HeaderProps {
+  title: string
+}
+
+const Header: React.FC <HeaderProps> = (props) => {
   return <header className="AppHeader">
-    <h1>AlgaStock</h1>
+    <h1> { props.title }</h1>
   </header>
 }
 
