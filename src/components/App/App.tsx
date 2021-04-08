@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '../../shared/Button';
 import Container from '../../shared/Container';
+import Input from '../../shared/Input';
 import Header from '../Header';
 import './App.css';
 
@@ -10,10 +11,18 @@ function TestComponent()  {
 }
 
 function App() {
+
+  const [nome, setNome] = useState('')
+
   return (
     <div className="App">
       <Header title="AlgaStock"/>
       <Container >
+        <Input 
+          label="Nome"
+          placeholder="Nome"
+          value={nome}
+          onChange = { e => setNome(e.target.value)} />
         <Button  onClick= { () => window.alert('Uhuuuuuu....') }
           appendIcon={<TestComponent />}
         >
