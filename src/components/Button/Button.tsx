@@ -6,6 +6,7 @@ import './Button.css'
 declare interface ButtonProps  {
   rotulo? : string
   onClick?: () => void
+  appendIcon?: JSX.Element
 }
 
 const Button: React.FC <ButtonProps> = (props) => {
@@ -14,6 +15,7 @@ const Button: React.FC <ButtonProps> = (props) => {
     onClick={props.onClick}
      >
       { props.children}
+      { props.appendIcon}
     </button>
 }
 
