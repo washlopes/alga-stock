@@ -4,7 +4,7 @@ import './Button.css'
 // import { Container } from './styles';
 
 declare interface ButtonProps  {
-  rotulo? : string
+  rotulo?: string
   onClick?: () => void
   appendIcon?: JSX.Element
 }
@@ -14,7 +14,7 @@ const Button: React.FC <ButtonProps> = (props) => {
     className="AppButton"
     onClick={props.onClick}
      >
-      { props.children}
+      { props.children || 'Nameless button'}
       { props.appendIcon}
     </button>
 }

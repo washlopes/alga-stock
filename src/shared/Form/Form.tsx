@@ -15,12 +15,12 @@ const Form: React.FC <FormProps> = (props) => {
   }
 
   return <form onSubmit={preventedSubmit} className="AppForm">
-    {
-      props.title && <div className="Title">
-        {props.title}
-      </div>
-    }
-      { props.children}
+      {
+        props.title && <div className="Title">
+          {props.title}
+        </div>
+      }
+      { props.children }
     </form>
 
 }

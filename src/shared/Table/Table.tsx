@@ -30,8 +30,7 @@ const Table: React.FC <TableProps> = (props) => {
       <thead>
         <tr> {
             props.headers.map( header => <th className={header.right? 'right' :'' } key={header.key}>{header.value}</th>)
-          }            
-        </tr>
+          }</tr>
       </thead>
       <tbody>
       {
@@ -41,13 +40,11 @@ const Table: React.FC <TableProps> = (props) => {
               Object.keys(row).map(
                 (item, i) => 
                   item !== '$original'
-                  ? <td key={row.$original.id} className={indexedHeaders[item].right ? 'right' : ''}>
+                  ? <td key={row.$original.id + i}  className={indexedHeaders[item].right ? 'right' : ''}>
                     { row[item] }
                   </td>
                   :  null                
-              )
-            }
-          </tr>
+              )}</tr>
         })
       }      
       </tbody>
