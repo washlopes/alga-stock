@@ -4,30 +4,86 @@ import './Table.scss'
 import Products from './Table.mockdata'
 // import { Container } from './styles';
 
-const headers = [
+const headers: TableHeader[] = [
+  { key: 'id', value: '#' },
   { key: 'name', value: 'Product' },
-  { key: 'price', value: 'Price' },
-  { key: 'stock', value: 'Available Stock' }
+  { key: 'price', value: 'Price', right: true },
+  { key: 'stock', value: 'Available Stock', right: true },
+  //{ key: 'action', value: "Action"}
 ]
 
+declare interface TableHeader {
+  key: string
+  value: string
+  right?: boolean
+}
+
+type IndexedHeaders = {
+  [key: string] : TableHeader
+}
+
+type OrganizedItem = {
+  [key: string] :any
+}
+function organizeData (data: any[], headers: TableHeader[]): [OrganizedItem[], IndexedHeaders] {
+  const indexedHeaders: IndexedHeaders = {}
+
+  headers.forEach(header => {
+    indexedHeaders[header.key] = {
+      ...header
+    }
+  })
+
+  const headerKeysInOrder = Object.keys(indexedHeaders) 
+
+  const organizedData = data.map( item => {
+    const organizedItem: OrganizedItem = {}
+
+    headerKeysInOrder.forEach(key => {
+      organizedItem[key] = item[key]
+    })
+
+    organizedItem.$original  = item
+
+    return organizedItem
+  })
+  
+  return [organizedData, indexedHeaders]
+}
+
 const Table: React.FC = () => {
+
+  
+  const [organizedData, indexedHeaders] = organizeData(Products, headers)
+
+  console.table(organizedData)
+  console.table(indexedHeaders)
+
   return <table className="AppTable">
-    <thead>
-      <tr> {
-          headers.map( header => <th key={header.key}>{header.value}</th>)
-        }            
-      </tr>
-    </thead>
-    <tbody>
-     {
-       Products.map( product => <tr>
-         <td>{ product.name }</td>
-         <td>{ product.price }</td>
-         <td>{ product.stock }</td>
-       </tr> )
-     }
-      
-    </tbody>
+      <thead>
+        <tr> {
+            headers.map( header => <th className={header.right? 'right' :'' } key={header.key}>{header.value}</th>)
+          }            
+        </tr>
+      </thead>
+      <tbody>
+      {
+        organizedData.map( (row, i) =>  {
+          return <tr key={i}>
+            {
+              Object.keys(row).map(
+                (item, i) => 
+                  item !== '$original'
+                  ? <td key={row.$original.id} className={indexedHeaders[item].right ? 'right' : ''}>
+                    { row[item] }
+                  </td>
+                  :  null                
+              )
+            }
+          </tr>
+        })
+      }      
+      </tbody>
     </table>  
 }
 
