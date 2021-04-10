@@ -26,9 +26,6 @@ const Table: React.FC <TableProps> = (props) => {
 
   const [organizedData, indexedHeaders] = organizeData(props.data, props.headers)
 
-  console.table(organizedData)
-  console.table(indexedHeaders)
-
   return <table className="AppTable">
       <thead>
         <tr> {

@@ -1,6 +1,9 @@
 import React from 'react';
+import Button from '../../shared/Button';
 
 import Container from '../../shared/Container';
+import Form from '../../shared/Form';
+import Input from '../../shared/Input';
 import Table, { TableHeader } from '../../shared/Table';
 import Products from '../../shared/Table/Table.mockdata';
 
@@ -24,9 +27,29 @@ function App() {
         <Table 
           headers={headers}
           data={Products}
-        >
-
-        </Table>
+        />
+        <Form title="Product" onSubmit={console.log}>
+          <Input 
+            label="Name"            
+            placeholder="E.g.: Cookie"
+          />
+          <Input 
+            label="Price"
+            type="number"
+            step="0.01"
+            min="0"
+            placeholder="E.g.: 1.25"
+          />
+          <Input 
+            label="Stock"
+            type="number"
+            min="0"
+            placeholder="E.g.: 32"
+          />
+          <Button>
+            Submit
+          </Button>
+        </Form>
       </Container>            
     </div>
     
