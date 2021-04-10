@@ -29,7 +29,7 @@ const ProductForm: React.FC = () => {
     console.log(form)
   }
 
-  return <Form onSubmit={handleSubmitForm}>
+  return <Form title="Produto" onSubmit={handleSubmitForm}>
      <Input
       onChange={handleInputChange}
       name="name" 
