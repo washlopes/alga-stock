@@ -74,7 +74,6 @@ const ProductForm: React.FC <ProductFormProps> = (props) => {
       placeholder="E.g.: 32"
       required
     />
-
     <Button>
       Submit
     </Button>
