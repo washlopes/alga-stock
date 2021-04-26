@@ -22,6 +22,8 @@ function App() {
 
   const [products, setProducts] = useState(Products)
 
+  const [updatingProduct, setUpdatingProduct] = useState <Product | undefined>(products[0])
+
   const handleProductSubmit = (product: ProductCreator) => {
     console.log(product)
     setProducts( [
@@ -41,6 +43,8 @@ function App() {
         : product
       )
     )
+
+    setUpdatingProduct(undefined)
     
   }
 
@@ -53,7 +57,7 @@ function App() {
           data={products}
         />
         <ProductForm 
-          form={products[0]}
+          form={updatingProduct}
           onSubmit={handleProductSubmit}
           onUpdate={handleProductUpdate} />
       </Container>            

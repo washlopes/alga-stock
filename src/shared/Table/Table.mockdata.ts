@@ -8,7 +8,7 @@ export interface Product {
 const Products: Product[] = [
   {
     id: 1,
-    name: 'Cokie',
+    name: 'Cookie',
     price: 1.25,
     stock: 20
   },
