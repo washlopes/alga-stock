@@ -5,8 +5,8 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import http from './utils/http'
 
-http.get('/posts')
-http.get('/posts/1')
+//http.get('/posts')
+//http.get('/posts/1')
 http.get('https://viacep.com.br/ws/29140160/json/')
 
 ReactDOM.render(

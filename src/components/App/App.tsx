@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Swal from 'sweetalert2'
+import { getAllProducts } from '../../services/Product.services';
 
 import Container from '../../shared/Container';
 
@@ -21,9 +22,20 @@ const headers: TableHeader[] = [
 
 function App() { 
 
-  const [products, setProducts] = useState(Products)
+  const [products, setProducts] = useState <Product[]>([])
 
   const [updatingProduct, setUpdatingProduct] = useState <Product | undefined>(products[0])
+
+  useEffect(() => {
+    async function fetchData() {
+      const _products = await getAllProducts()
+
+      setProducts(_products)
+    }
+
+    fetchData()
+  }, [])
+  getAllProducts().then(console.log)
 
   const handleProductSubmit = (product: ProductCreator) => {
     console.log(product)
