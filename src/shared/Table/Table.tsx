@@ -3,6 +3,8 @@ import React from 'react';
 import './Table.scss'
 
 import { organizeData } from '../../utils/organizeDataForTable';
+import Button from '../Button';
+
 // import { Container } from './styles';
 
 export interface TableHeader {
@@ -30,7 +32,14 @@ const Table: React.FC <TableProps> = (props) => {
       <thead>
         <tr> {
             props.headers.map( header => <th className={header.right? 'right' :'' } key={header.key}>{header.value}</th>)
-          }</tr>
+          }
+          {
+            props.enableActions &&
+            <th className="right">
+              Ações
+            </th>
+          }
+          </tr>
       </thead>
       <tbody>
       {
@@ -44,7 +53,22 @@ const Table: React.FC <TableProps> = (props) => {
                     { row[item] }
                   </td>
                   :  null                
-              )}</tr>
+              )}
+              {
+                props.enableActions &&
+                  <td className="actions right">
+                    {
+                      props.onEdit && <Button onClick={() =>props.onEdit && props.onEdit(row)}>Editar</Button>                      
+                    }
+                    {
+                      props.onDelete && <Button onClick={() => props.onDelete &&props.onDelete(row)}>Deletar</Button>                      
+                    }
+                    {
+                      props.onDetail && <Button onClick={() => props.onDetail &&props.onDetail(row)}>Detalhar</Button>                      
+                    }
+                  </td>
+              }
+              </tr>
         })
       }      
       </tbody>
