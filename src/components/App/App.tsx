@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import Swal from 'sweetalert2'
 
 import Container from '../../shared/Container';
 
@@ -43,9 +44,45 @@ function App() {
         : product
       )
     )
+    setUpdatingProduct(undefined)    
+  }
 
-    setUpdatingProduct(undefined)
-    
+  const handleProductEdit = (product: Product) => {
+    setUpdatingProduct(product)
+  }
+
+  const handleProductDetail = (product: Product) => {
+    Swal.fire(
+      'Product Details',
+      `${product.name} cost R$${product.price}. We have ${product.stock} in stock`,
+      'info'
+    )
+  }
+
+  const deleteProduct = (id: number) => {
+    console.log(`Confirmada a exclusão do produto de id ${id}`)
+    setProducts(products.filter(product => product.id !== id))
+    Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  }
+
+  const handleProductDelete = (product: Product) => {
+    Swal.fire({
+      title: 'You are sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#09f',
+      cancelButtonColor: '#d33',
+      confirmButtonText: `Yes, delete ${product.name}!`
+    }).then((result) => {
+      if (result.value) {
+        deleteProduct(product.id)       
+      }
+    })
   }
 
   return (
@@ -56,9 +93,9 @@ function App() {
           headers={headers}
           data={products}
           enableActions
-          onEdit={console.log}
-          onDelete={console.log}          
-          onDetail={console.log}
+          onEdit={handleProductEdit}
+          onDelete={handleProductDelete}          
+          onDetail={handleProductDetail}
         />
         <ProductForm 
           form={updatingProduct}
