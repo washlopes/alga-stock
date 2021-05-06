@@ -42,7 +42,7 @@ function App() {
     setProducts( [
       ...products,
       {
-        id: products.length + 1,
+        _id: String(products.length + 1),
         ...product
       }
     ])
@@ -51,7 +51,7 @@ function App() {
   const handleProductUpdate = (newProduct: Product) => {
     console.log(newProduct)
     setProducts( products.map( product => 
-        product.id === newProduct.id
+        product._id === newProduct._id
         ? newProduct
         : product
       )
@@ -71,9 +71,9 @@ function App() {
     )
   }
 
-  const deleteProduct = (id: number) => {
+  const deleteProduct = (id: string) => {
     console.log(`Confirmada a exclusão do produto de id ${id}`)
-    setProducts(products.filter(product => product.id !== id))
+    setProducts(products.filter(product => product._id !== id))
     Swal.fire(
       'Deleted!',
       'Your file has been deleted.',
@@ -92,7 +92,7 @@ function App() {
       confirmButtonText: `Yes, delete ${product.name}!`
     }).then((result) => {
       if (result.value) {
-        deleteProduct(product.id)       
+        deleteProduct(product._id)       
       }
     })
   }
