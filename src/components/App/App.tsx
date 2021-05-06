@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Swal from 'sweetalert2'
-import { getAllProducts } from '../../services/Product.services';
+import { createSingleProduct, deleteteSingleProduct, getAllProducts, updateSingleProduct } from '../../services/Product.services';
 
 import Container from '../../shared/Container';
 
@@ -26,37 +26,34 @@ function App() {
 
   const [updatingProduct, setUpdatingProduct] = useState <Product | undefined>(products[0])
 
+  async function fetchData() {
+    const _products = await getAllProducts()
+
+    setProducts(_products)
+  }
+
   useEffect(() => {
-    async function fetchData() {
-      const _products = await getAllProducts()
-
-      setProducts(_products)
-    }
-
     fetchData()
   }, [])
   getAllProducts().then(console.log)
 
-  const handleProductSubmit = (product: ProductCreator) => {
-    console.log(product)
-    setProducts( [
-      ...products,
-      {
-        _id: String(products.length + 1),
-        ...product
-      }
-    ])
+  const handleProductSubmit = async (product: ProductCreator) => {
+    try {
+      await createSingleProduct(product)
+      fetchData()
+    } catch (err) {
+      Swal.fire('Oops!', err.message, 'error')
+    }
   }
 
-  const handleProductUpdate = (newProduct: Product) => {
-    console.log(newProduct)
-    setProducts( products.map( product => 
-        product._id === newProduct._id
-        ? newProduct
-        : product
-      )
-    )
-    setUpdatingProduct(undefined)    
+  const handleProductUpdate =  async (newProduct: Product) => {
+    try {
+      await updateSingleProduct(newProduct)      
+      setUpdatingProduct(undefined)
+      fetchData()
+    } catch(err) {
+      Swal.fire('Ooooops!', err.message, 'error')
+    }  
   }
 
   const handleProductEdit = (product: Product) => {
@@ -71,14 +68,14 @@ function App() {
     )
   }
 
-  const deleteProduct = (id: string) => {
-    console.log(`Confirmada a exclusão do produto de id ${id}`)
-    setProducts(products.filter(product => product._id !== id))
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
+  const deleteProduct = async (id: string) => {
+    try {
+      await deleteteSingleProduct(id)
+      fetchData()
+      Swal.fire('Uhuuu!', 'Product sucessfully deleted!', 'success')      
+    } catch (err) {
+      Swal.fire('Oooops!', err.message, 'error')
+    }    
   }
 
   const handleProductDelete = (product: Product) => {
