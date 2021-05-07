@@ -9,11 +9,11 @@ export const getAllProducts = () =>
 
 export const createSingleProduct = (product: ProductCreator) =>
   http
-    .post('http://localhost:3024/products', product)
+    .post('/products', product)
 
     export const updateSingleProduct = ({_id, name, price, stock}: Product) =>
     http
-      .patch(`http://localhost:3024/products/${_id}`, {
+      .patch(`/products/${_id}`, {
         ...(name && { name }),
         ...(price && { price }),
         ...(stock && { stock })
@@ -21,4 +21,4 @@ export const createSingleProduct = (product: ProductCreator) =>
 
       export const deleteteSingleProduct = (id: string) =>
     http
-      .delete(`http://localhost:3024/products/${id}`)
+      .delete(`/products/${id}`)
