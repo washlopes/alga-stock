@@ -3,7 +3,7 @@ export declare interface Action <T = any> {
   payload?: T
 }
 
-export default function ( state = [], action: Action ) {
+export default function redutor( state = [], action: Action ) {
   switch (action.type) {
     case 'INSERT_NEW_PRODUCT':
       return [...state, action.payload]
