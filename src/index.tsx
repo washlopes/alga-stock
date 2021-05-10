@@ -5,7 +5,7 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import http from './utils/http'
 import { Provider } from 'react-redux'
-import store from './redux/Products';
+import store from './redux';
 
 
 //http.get('/posts')

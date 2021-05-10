@@ -9,7 +9,7 @@ import Table, { TableHeader } from '../../shared/Table'
 import { Product } from '../../shared/Table/Table.mockdata'
 import ProductForm, { ProductCreator } from './ProductForm'
 import { connect, useDispatch } from 'react-redux'
-import { insertnewProduct } from '../../redux/Products/Products.actions'
+import { getProducts, insertNewProduct } from '../../redux/Products/Products.actions'
 
 const headers: TableHeader[] = [
   { key: 'id', value: '#' },
@@ -31,9 +31,7 @@ const ProductsCRUD: React.FC <ProductsCRUDProps> = (props) => {
   const [updatingProduct, setUpdatingProduct] = useState <Product | undefined>(undefined)
 
   async function fetchData() {
-    /* const _products = await getAllProducts()
-
-    setProducts(_products) */
+    dispatch(getProducts)
   }
 
   useEffect(() => {
@@ -43,7 +41,7 @@ const ProductsCRUD: React.FC <ProductsCRUDProps> = (props) => {
 
   const handleProductSubmit = async (product: ProductCreator) => {
     try {
-      dispatch(insertnewProduct(product))
+      dispatch(insertNewProduct(product))
       //await createSingleProduct(product)
       fetchData()
     } catch (err) {
