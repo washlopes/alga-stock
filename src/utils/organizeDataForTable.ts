@@ -8,7 +8,8 @@ type OrganizedItem = {
   [key: string] :any
 }
 
-export function organizeData (data: any[], headers: TableHeader[]): [OrganizedItem[], IndexedHeaders] {
+export function organizeData (data: any[], headers: TableHeader[]):
+   [OrganizedItem[], IndexedHeaders] {
   const indexedHeaders: IndexedHeaders = {}
 
   headers.forEach(header => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
-import { createSingleProduct,
+import {
           deleteteSingleProduct,
           getAllProducts,
           updateSingleProduct
@@ -8,6 +8,8 @@ import { createSingleProduct,
 import Table, { TableHeader } from '../../shared/Table'
 import { Product } from '../../shared/Table/Table.mockdata'
 import ProductForm, { ProductCreator } from './ProductForm'
+import { connect, useDispatch } from 'react-redux'
+import { insertnewProduct } from '../../redux/Products/Products.actions'
 
 const headers: TableHeader[] = [
   { key: 'id', value: '#' },
@@ -17,24 +19,32 @@ const headers: TableHeader[] = [
   //{ key: 'action', value: "Action"}
 ]
 
-const ProductsCRUD = () => {
-  const [products, setProducts] = useState <Product[]>([])
+declare interface ProductsCRUDProps {
+  products: Product[]
+}
 
-  const [updatingProduct, setUpdatingProduct] = useState <Product | undefined>(products[0])
+const ProductsCRUD: React.FC <ProductsCRUDProps> = (props) => {
+  const dispatch = useDispatch()
+
+  //const [products, setProducts] = useState <Product[]>([])
+
+  const [updatingProduct, setUpdatingProduct] = useState <Product | undefined>(undefined)
 
   async function fetchData() {
-    const _products = await getAllProducts()
+    /* const _products = await getAllProducts()
 
-    setProducts(_products)
+    setProducts(_products) */
   }
 
   useEffect(() => {
     fetchData()
   }, [])
   getAllProducts().then(console.log)
+
   const handleProductSubmit = async (product: ProductCreator) => {
     try {
-      await createSingleProduct(product)
+      dispatch(insertnewProduct(product))
+      //await createSingleProduct(product)
       fetchData()
     } catch (err) {
       Swal.fire('Oops!', err.message, 'error')
@@ -92,7 +102,7 @@ const ProductsCRUD = () => {
   return <>
     <Table 
           headers={headers}
-          data={products}
+          data={props.products}
           enableActions
           onEdit={handleProductEdit}
           onDelete={handleProductDelete}          
@@ -105,4 +115,8 @@ const ProductsCRUD = () => {
   </>
 }
 
-export default ProductsCRUD
+const mapStateToProps = (state: any) => ({
+  products: state.products
+})
+
+export default connect(mapStateToProps)(ProductsCRUD)
