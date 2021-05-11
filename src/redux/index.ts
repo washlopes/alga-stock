@@ -31,4 +31,5 @@ export type RootState = ReturnType <typeof reducers>
 export type Thunk <T = any> = 
   ThunkAction<void, RootState, unknown, Action <T> >
 
+  export type ThunkDispatch = (thunk: Thunk) => Promise<Thunk>
 export default store

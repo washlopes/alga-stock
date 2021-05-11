@@ -16,9 +16,8 @@ export const updateProduct =
   }
 export const getProducts =
  (): Thunk<Product[]> =>
- async (dispatch: any) => {
+ async (dispatch) => {
   const products = await getAllProducts()
-  console.log('fetched')
   dispatch({
     type: 'FETCH_PRODUCTS',
     payload: products
@@ -29,7 +28,7 @@ export const insertNewProduct =
  (product: ProductCreator): Thunk => 
  async (dispatch) => {
   await createSingleProduct(product)
-  dispatch(getProducts)
+  dispatch(getProducts())
   }
 
   export const deleteProduct =
