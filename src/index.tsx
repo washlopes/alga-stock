@@ -3,14 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
-import http from './utils/http'
 import { Provider } from 'react-redux'
 import store from './redux';
-
-
-//http.get('/posts')
-//http.get('/posts/1')
-http.get('https://viacep.com.br/ws/29140160/json/')
 
 ReactDOM.render(
   <React.StrictMode>
