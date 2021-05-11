@@ -47,7 +47,7 @@ const ProductForm: React.FC <ProductFormProps> = (props) => {
   }, [props.form])
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value,name} = event.target
+    const { value,name } = event.target
 
     setForm( {
       ...form,
